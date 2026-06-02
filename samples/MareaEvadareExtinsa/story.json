@@ -63,7 +63,7 @@
     {
       "id": "intro.arrival",
       "text": "Ajungi intr-o piata intunecata a districtului industrial. De aici poti cauta ajutor, echipamente sau o cale riscanta spre poarta.",
-      "backgroundImage": "images/intro_industrial_user.png",
+      "backgroundImage": "images/inceput_industrial.png",
       "isEnding": false,
       "decisions": [
         {
@@ -109,7 +109,7 @@
     {
       "id": "market.trader",
       "text": "Un negustor iti ofera un pansament pentru 4 monede si sopteste ca mecanicul pastreaza cheia portii.",
-      "backgroundImage": "images/market_user.png",
+      "backgroundImage": "images/piata_clandestina.png",
       "isEnding": false,
       "decisions": [
         {
@@ -156,7 +156,7 @@
     {
       "id": "market.afterPurchase",
       "text": "Ascunzi pansamentul in haina. Negustorul iti recomanda sa eviti patrulele si sa cauti mecanicul.",
-      "backgroundImage": "images/market_user.png",
+      "backgroundImage": "images/piata_clandestina.png",
       "isEnding": false,
       "decisions": [
         {
@@ -185,7 +185,7 @@
     {
       "id": "workshop.entry",
       "text": "Atelierul mecanicului este slab luminat. Mecanicul iti vinde cheia portii pentru 5 monede, dar un sertar descuiat iti atrage atentia.",
-      "backgroundImage": "images/atelier_user.png",
+      "backgroundImage": "images/atelier.png",
       "isEnding": false,
       "decisions": [
         {
@@ -237,7 +237,7 @@
     {
       "id": "workshop.keyPurchased",
       "text": "Cheia este grea si ruginita, dar se potriveste cu simbolul gravat pe poarta de iesire.",
-      "backgroundImage": "images/atelier_user.png",
+      "backgroundImage": "images/atelier.png",
       "isEnding": false,
       "decisions": [
         {
@@ -267,7 +267,7 @@
     {
       "id": "workshop.search",
       "text": "Gasesti o cheie de rezerva, dar rascolirea atelierului declanseaza un clopotel de alarma.",
-      "backgroundImage": "images/atelier_user.png",
+      "backgroundImage": "images/atelier.png",
       "isEnding": false,
       "decisions": [
         {
@@ -302,7 +302,7 @@
     {
       "id": "alley.shortcut",
       "text": "Aleea este plina de cioburi si sirenele patrulelor se aud aproape. O taietura iti ingreuneaza mersul.",
-      "backgroundImage": "images/shortcut_user.png",
+      "backgroundImage": "images/scurtatura.png",
       "isEnding": false,
       "decisions": [
         {
@@ -364,7 +364,7 @@
     {
       "id": "guard.checkpoint",
       "text": "Un paznic blocheaza drumul catre poarta. Lumina lanternei lui se opreste asupra ta.",
-      "backgroundImage": "images/inn.png",
+      "backgroundImage": "images/poarta.png",
       "isEnding": false,
       "decisions": [
         {
@@ -434,7 +434,7 @@
     {
       "id": "gate.locked",
       "text": "Poarta masiva este inchisa. In departare, sirenele se apropie, iar fiecare secunda conteaza.",
-      "backgroundImage": "images/gate_user.png",
+      "backgroundImage": "images/poarta.png",
       "isEnding": false,
       "decisions": [
         {
@@ -498,7 +498,7 @@
     {
       "id": "gate.force",
       "text": "Poarta nu cedeaza. Mainile iti sangereaza, iar patrula este aproape. Mai ai o singura sansa.",
-      "backgroundImage": "images/gate_user.png",
+      "backgroundImage": "images/poarta.png",
       "isEnding": false,
       "decisions": [
         {
@@ -560,21 +560,21 @@
     {
       "id": "ending.escape",
       "text": "Cheia se roteste, poarta se deschide si dispari dincolo de ziduri. Ai evadat din districtul industrial!",
-      "backgroundImage": "images/escape.png",
+      "backgroundImage": "images/poarta.png",
       "isEnding": true,
       "decisions": []
     },
     {
       "id": "ending.death",
       "text": "Ranile sunt prea grave. Cazi langa poarta, iar aventura se incheie aici.",
-      "backgroundImage": "images/death.png",
+      "backgroundImage": "images/poarta.png",
       "isEnding": true,
       "decisions": []
     },
     {
       "id": "ending.captured",
       "text": "Suspiciunea a ajuns la maximum. Patrulele te inconjoara si esti capturat inainte de a ajunge la poarta.",
-      "backgroundImage": "images/death.png",
+      "backgroundImage": "images/poarta.png",
       "isEnding": true,
       "decisions": []
     }

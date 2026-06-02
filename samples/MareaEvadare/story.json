@@ -2,42 +2,183 @@
   "title": "Marea evadare",
   "startBlockId": "intro.arrival",
   "properties": [
-    { "key": "player.life", "hudLabel": "Viata", "min": 0, "max": 100, "initial": 50, "visibleInHud": true, "hudOrder": 1, "onMinBlockId": "ending.death" },
-    { "key": "player.energy", "hudLabel": "Energie", "min": 0, "max": 100, "initial": 40, "visibleInHud": true, "hudOrder": 2 },
-    { "key": "inventory.money", "hudLabel": "Bani", "min": 0, "max": 50, "initial": 10, "visibleInHud": true, "hudOrder": 3 },
-    { "key": "story.hasKey", "hudLabel": "Cheie", "min": 0, "max": 1, "initial": 0, "visibleInHud": false, "hudOrder": 99 }
+    {
+      "key": "player.life",
+      "hudLabel": "Viata",
+      "min": 0,
+      "max": 100,
+      "initial": 50,
+      "visibleInHud": true,
+      "hudOrder": 1,
+      "onMinBlockId": "ending.death"
+    },
+    {
+      "key": "player.energy",
+      "hudLabel": "Energie",
+      "min": 0,
+      "max": 100,
+      "initial": 40,
+      "visibleInHud": true,
+      "hudOrder": 2
+    },
+    {
+      "key": "inventory.money",
+      "hudLabel": "Bani",
+      "min": 0,
+      "max": 50,
+      "initial": 10,
+      "visibleInHud": true,
+      "hudOrder": 3
+    },
+    {
+      "key": "story.hasKey",
+      "hudLabel": "Cheie",
+      "min": 0,
+      "max": 1,
+      "initial": 0,
+      "visibleInHud": false,
+      "hudOrder": 99
+    }
   ],
   "blocks": [
     {
-      "id": "intro.arrival", "text": "Ajungi intr-o piata intunecata, la marginea districtului industrial. O alee duce spre han, alta spre atelierul mecanicului.", "backgroundImage": "images/intro.png", "isEnding": false,
+      "id": "intro.arrival",
+      "text": "Ajungi intr-o piata intunecata, la marginea districtului industrial. O alee duce spre han, alta spre atelierul mecanicului.",
+      "backgroundImage": "images/inceput_industrial.png",
+      "isEnding": false,
       "decisions": [
-        { "text": "Mergi la han", "targetBlockId": "inn.entry", "effects": [{ "type": "add", "property": "player.energy", "value": -5 }] },
-        { "text": "Mergi la atelier", "targetBlockId": "workshop.entry", "effects": [] }
+        {
+          "text": "Mergi la han",
+          "targetBlockId": "inn.entry",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": -5
+            }
+          ]
+        },
+        {
+          "text": "Mergi la atelier",
+          "targetBlockId": "workshop.entry",
+          "effects": []
+        }
       ]
     },
     {
-      "id": "workshop.entry", "text": "Mecanicul iti ofera o cheie veche pentru 5 monede.", "backgroundImage": "images/workshop.png", "isEnding": false,
+      "id": "workshop.entry",
+      "text": "Mecanicul iti ofera o cheie veche pentru 5 monede.",
+      "backgroundImage": "images/atelier.png",
+      "isEnding": false,
       "decisions": [
-        { "text": "Cumpara cheia", "targetBlockId": "gate.closed", "condition": { "type": "comparison", "property": "inventory.money", "operator": "greaterOrEqual", "value": 5, "conditions": [] }, "effects": [{ "type": "add", "property": "inventory.money", "value": -5 }, { "type": "set", "property": "story.hasKey", "value": 1 }] },
-        { "text": "Pleaca fara sa cumperi", "targetBlockId": "intro.arrival", "effects": [] }
+        {
+          "text": "Cumpara cheia",
+          "targetBlockId": "gate.closed",
+          "condition": {
+            "type": "comparison",
+            "property": "inventory.money",
+            "operator": "greaterOrEqual",
+            "value": 5,
+            "conditions": []
+          },
+          "effects": [
+            {
+              "type": "add",
+              "property": "inventory.money",
+              "value": -5
+            },
+            {
+              "type": "set",
+              "property": "story.hasKey",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "text": "Pleaca fara sa cumperi",
+          "targetBlockId": "intro.arrival",
+          "effects": []
+        }
       ]
     },
     {
-      "id": "inn.entry", "text": "La han, paznicul te provoaca. In lupta pierzi energie si viata.", "backgroundImage": "images/inn.png", "isEnding": false,
+      "id": "inn.entry",
+      "text": "La han, paznicul te provoaca. In lupta pierzi energie si viata.",
+      "backgroundImage": "images/piata_clandestina.png",
+      "isEnding": false,
       "decisions": [
-        { "text": "Lupta si continua spre poarta", "targetBlockId": "gate.closed", "effects": [{ "type": "add", "property": "player.life", "value": -20 }, { "type": "add", "property": "player.energy", "value": -20 }] },
-        { "text": "Intoarce-te in piata", "targetBlockId": "intro.arrival", "effects": [] }
+        {
+          "text": "Lupta si continua spre poarta",
+          "targetBlockId": "gate.closed",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.life",
+              "value": -20
+            },
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": -20
+            }
+          ]
+        },
+        {
+          "text": "Intoarce-te in piata",
+          "targetBlockId": "intro.arrival",
+          "effects": []
+        }
       ]
     },
     {
-      "id": "gate.closed", "text": "Poarta de iesire este incuiata. O cheie potrivita te-ar salva.", "backgroundImage": "images/gate.png", "isEnding": false,
+      "id": "gate.closed",
+      "text": "Poarta de iesire este incuiata. O cheie potrivita te-ar salva.",
+      "backgroundImage": "images/poarta.png",
+      "isEnding": false,
       "decisions": [
-        { "text": "Deschide poarta", "targetBlockId": "ending.escape", "condition": { "type": "comparison", "property": "story.hasKey", "operator": "equal", "value": 1, "conditions": [] }, "effects": [] },
-        { "text": "Forteaza poarta", "targetBlockId": "gate.closed", "effects": [{ "type": "add", "property": "player.life", "value": -25 }] },
-        { "text": "Intoarce-te", "targetBlockId": "intro.arrival", "effects": [] }
+        {
+          "text": "Deschide poarta",
+          "targetBlockId": "ending.escape",
+          "condition": {
+            "type": "comparison",
+            "property": "story.hasKey",
+            "operator": "equal",
+            "value": 1,
+            "conditions": []
+          },
+          "effects": []
+        },
+        {
+          "text": "Forteaza poarta",
+          "targetBlockId": "gate.closed",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.life",
+              "value": -25
+            }
+          ]
+        },
+        {
+          "text": "Intoarce-te",
+          "targetBlockId": "intro.arrival",
+          "effects": []
+        }
       ]
     },
-    { "id": "ending.escape", "text": "Poarta se deschide. Ai evadat din districtul industrial!", "backgroundImage": "images/escape.png", "isEnding": true, "decisions": [] },
-    { "id": "ending.death", "text": "Ranile sunt prea grave. Aventura se incheie aici.", "backgroundImage": "images/death.png", "isEnding": true, "decisions": [] }
+    {
+      "id": "ending.escape",
+      "text": "Poarta se deschide. Ai evadat din districtul industrial!",
+      "backgroundImage": "images/poarta.png",
+      "isEnding": true,
+      "decisions": []
+    },
+    {
+      "id": "ending.death",
+      "text": "Ranile sunt prea grave. Aventura se incheie aici.",
+      "backgroundImage": "images/poarta.png",
+      "isEnding": true,
+      "decisions": []
+    }
   ]
 }
