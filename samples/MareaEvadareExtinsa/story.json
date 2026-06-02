@@ -63,7 +63,7 @@
     {
       "id": "intro.arrival",
       "text": "Ajungi intr-o piata intunecata a districtului industrial. De aici poti cauta ajutor, echipamente sau o cale riscanta spre poarta.",
-      "backgroundImage": "images/intro.png",
+      "backgroundImage": "images/piata_clandestina.png",
       "isEnding": false,
       "decisions": [
         {
@@ -109,7 +109,7 @@
     {
       "id": "market.trader",
       "text": "Un negustor iti ofera un pansament pentru 4 monede si sopteste ca mecanicul pastreaza cheia portii.",
-      "backgroundImage": "images/inn.png",
+      "backgroundImage": "images/piata_clandestina.png",
       "isEnding": false,
       "decisions": [
         {
@@ -156,7 +156,7 @@
     {
       "id": "market.afterPurchase",
       "text": "Ascunzi pansamentul in haina. Negustorul iti recomanda sa eviti patrulele si sa cauti mecanicul.",
-      "backgroundImage": "images/inn.png",
+      "backgroundImage": "images/piata_clandestina.png",
       "isEnding": false,
       "decisions": [
         {
@@ -185,7 +185,7 @@
     {
       "id": "workshop.entry",
       "text": "Atelierul mecanicului este slab luminat. Mecanicul iti vinde cheia portii pentru 5 monede, dar un sertar descuiat iti atrage atentia.",
-      "backgroundImage": "images/workshop.png",
+      "backgroundImage": "images/atelier_nou.png",
       "isEnding": false,
       "decisions": [
         {
@@ -237,7 +237,7 @@
     {
       "id": "workshop.keyPurchased",
       "text": "Cheia este grea si ruginita, dar se potriveste cu simbolul gravat pe poarta de iesire.",
-      "backgroundImage": "images/workshop.png",
+      "backgroundImage": "images/atelier_nou.png",
       "isEnding": false,
       "decisions": [
         {
@@ -267,7 +267,7 @@
     {
       "id": "workshop.search",
       "text": "Gasesti o cheie de rezerva, dar rascolirea atelierului declanseaza un clopotel de alarma.",
-      "backgroundImage": "images/workshop.png",
+      "backgroundImage": "images/atelier_nou.png",
       "isEnding": false,
       "decisions": [
         {
@@ -302,7 +302,7 @@
     {
       "id": "alley.shortcut",
       "text": "Aleea este plina de cioburi si sirenele patrulelor se aud aproape. O taietura iti ingreuneaza mersul.",
-      "backgroundImage": "images/intro.png",
+      "backgroundImage": "images/scurtatura_noua.png",
       "isEnding": false,
       "decisions": [
         {
