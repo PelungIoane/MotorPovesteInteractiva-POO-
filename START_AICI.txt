@@ -28,3 +28,8 @@ CERINTE
 
 Daca un script afiseaza o eroare, captura necesara este din acea fereastra,
 nu dintr-un proiect gol sau din folderul gresit.
+
+
+EDITOR ACTUALIZAT:
+Pentru a vedea proprietatile de stare, porniti Editorul si apasati fila sau butonul "Proprietati stare".
+Daca se deschide o versiune veche, rulati 04_CURATA_SI_PORNESTE_EDITOR.bat.

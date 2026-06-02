@@ -16,8 +16,10 @@ public sealed class EditorForm : Form
     private readonly CheckBox _isEnding = new() { Text = "Bloc final" };
     private readonly TextBox _background = new() { Width = 350 };
     private readonly DataGridView _decisions = new() { Width = 620, Height = 170, ReadOnly = true, SelectionMode = DataGridViewSelectionMode.FullRowSelect, AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill };
-    private readonly DataGridView _properties = new() { Dock = DockStyle.Fill, AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill };
+    private readonly DataGridView _properties = new() { Dock = DockStyle.Fill, AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill, AllowUserToAddRows = true, SelectionMode = DataGridViewSelectionMode.FullRowSelect };
     private readonly ListBox _validation = new() { Dock = DockStyle.Bottom, Height = 90 };
+    private readonly TabControl _tabs = new() { Dock = DockStyle.Fill };
+    private readonly TabPage _propertiesTab = new("Proprietati stare");
 
     public EditorForm()
     {
@@ -38,6 +40,8 @@ public sealed class EditorForm : Form
         bar.Items.Add("Salveaza ZIP", null, (_, _) => SavePackage());
         bar.Items.Add(new ToolStripSeparator());
         bar.Items.Add("Valideaza", null, (_, _) => ValidateStory());
+        bar.Items.Add(new ToolStripSeparator());
+        bar.Items.Add("Proprietati stare", null, (_, _) => _tabs.SelectedTab = _propertiesTab);
         return bar;
     }
     private Control BuildNavigation()
@@ -51,9 +55,8 @@ public sealed class EditorForm : Form
     }
     private Control BuildEditorTabs()
     {
-        TabControl tabs = new() { Dock = DockStyle.Fill };
-        tabs.TabPages.Add(BuildStoryTab()); tabs.TabPages.Add(BuildBlockTab()); tabs.TabPages.Add(BuildPropertiesTab());
-        Panel panel = new() { Dock = DockStyle.Fill }; panel.Controls.Add(tabs); panel.Controls.Add(_validation); return panel;
+        _tabs.TabPages.Add(BuildStoryTab()); _tabs.TabPages.Add(BuildBlockTab()); _tabs.TabPages.Add(BuildPropertiesTab());
+        Panel panel = new() { Dock = DockStyle.Fill }; panel.Controls.Add(_tabs); panel.Controls.Add(_validation); return panel;
     }
     private TabPage BuildStoryTab()
     {
@@ -78,9 +81,16 @@ public sealed class EditorForm : Form
     }
     private TabPage BuildPropertiesTab()
     {
-        TabPage tab = new("Proprietati stare");
         _properties.Columns.Add("Key", "Cheie"); _properties.Columns.Add("HudLabel", "Eticheta HUD"); _properties.Columns.Add("Min", "Min"); _properties.Columns.Add("Max", "Max"); _properties.Columns.Add("Initial", "Initial"); _properties.Columns.Add(new DataGridViewCheckBoxColumn { Name = "Visible", HeaderText = "HUD" }); _properties.Columns.Add("Order", "Ordine"); _properties.Columns.Add("OnMin", "Bloc la minim"); _properties.Columns.Add("OnMax", "Bloc la maxim");
-        Button apply = new() { Dock = DockStyle.Bottom, Text = "Aplica proprietatile", Height = 36 }; apply.Click += (_, _) => ApplyProperties(); tab.Controls.Add(_properties); tab.Controls.Add(apply); return tab;
+        Label hint = new() { Dock = DockStyle.Top, Height = 34, Text = "Definiti proprietatile care controleaza povestea si sunt afisate in HUD (Viata, Energie, Bani etc.).", Padding = new Padding(8) };
+        FlowLayoutPanel buttons = new() { Dock = DockStyle.Bottom, Height = 42, FlowDirection = FlowDirection.LeftToRight, Padding = new Padding(5) };
+        Button add = new() { Text = "Adauga proprietate", AutoSize = true };
+        Button delete = new() { Text = "Sterge selectia", AutoSize = true };
+        Button apply = new() { Text = "Aplica proprietatile", AutoSize = true };
+        add.Click += (_, _) => AddPropertyRow(); delete.Click += (_, _) => DeleteSelectedProperty(); apply.Click += (_, _) => ApplyProperties();
+        buttons.Controls.Add(add); buttons.Controls.Add(delete); buttons.Controls.Add(apply);
+        _propertiesTab.Controls.Add(_properties); _propertiesTab.Controls.Add(hint); _propertiesTab.Controls.Add(buttons);
+        return _propertiesTab;
     }
     private static FlowLayoutPanel ColumnPanel() => new() { Dock = DockStyle.Fill, Padding = new Padding(16), FlowDirection = FlowDirection.TopDown, AutoScroll = true, WrapContents = false };
     private static Control Row(string label, params Control[] controls) { FlowLayoutPanel row = new() { AutoSize = true, FlowDirection = FlowDirection.LeftToRight }; row.Controls.Add(new Label { Text = label, Width = 105, Padding = new Padding(0, 6, 0, 0) }); row.Controls.AddRange(controls); return row; }
@@ -118,6 +128,17 @@ public sealed class EditorForm : Form
     private void EditSelectedDecision() { if (_blocks.SelectedItem is StoryBlock block && _decisions.CurrentRow is not null && _decisions.CurrentRow.Index < block.Decisions.Count) EditDecision(block.Decisions[_decisions.CurrentRow.Index]); }
     private void DeleteSelectedDecision() { if (_blocks.SelectedItem is StoryBlock block && _decisions.CurrentRow is not null && _decisions.CurrentRow.Index < block.Decisions.Count) { block.Decisions.RemoveAt(_decisions.CurrentRow.Index); RefreshDecisions(block); } }
     private void RefreshProperties() { _properties.Rows.Clear(); foreach (StatePropertyDefinition p in _story.Properties) _properties.Rows.Add(p.Key, p.HudLabel, p.Min, p.Max, p.Initial, p.VisibleInHud, p.HudOrder, p.OnMinBlockId, p.OnMaxBlockId); }
+    private void AddPropertyRow()
+    {
+        string key = "story.property" + (_properties.Rows.Cast<DataGridViewRow>().Count(row => !row.IsNewRow) + 1);
+        _properties.Rows.Add(key, "Proprietate noua", 0, 100, 0, true, _properties.Rows.Count + 1, string.Empty, string.Empty);
+    }
+    private void DeleteSelectedProperty()
+    {
+        foreach (DataGridViewRow row in _properties.SelectedRows)
+            if (!row.IsNewRow) _properties.Rows.Remove(row);
+        ApplyProperties();
+    }
     private void ApplyProperties()
     {
         List<StatePropertyDefinition> list = [];
