@@ -364,7 +364,7 @@
     {
       "id": "guard.checkpoint",
       "text": "Un paznic blocheaza drumul catre poarta. Lumina lanternei lui se opreste asupra ta.",
-      "backgroundImage": "images/poarta.png",
+      "backgroundImage": "images/paznic_mita.png",
       "isEnding": false,
       "decisions": [
         {
@@ -434,7 +434,7 @@
     {
       "id": "gate.locked",
       "text": "Poarta masiva este inchisa. In departare, sirenele se apropie, iar fiecare secunda conteaza.",
-      "backgroundImage": "images/poarta.png",
+      "backgroundImage": "images/poarta_incercare.png",
       "isEnding": false,
       "decisions": [
         {
@@ -498,7 +498,7 @@
     {
       "id": "gate.force",
       "text": "Poarta nu cedeaza. Mainile iti sangereaza, iar patrula este aproape. Mai ai o singura sansa.",
-      "backgroundImage": "images/poarta.png",
+      "backgroundImage": "images/poarta_incercare.png",
       "isEnding": false,
       "decisions": [
         {
@@ -560,21 +560,21 @@
     {
       "id": "ending.escape",
       "text": "Cheia se roteste, poarta se deschide si dispari dincolo de ziduri. Ai evadat din districtul industrial!",
-      "backgroundImage": "images/poarta.png",
+      "backgroundImage": "images/final_evadare.png",
       "isEnding": true,
       "decisions": []
     },
     {
       "id": "ending.death",
       "text": "Ranile sunt prea grave. Cazi langa poarta, iar aventura se incheie aici.",
-      "backgroundImage": "images/poarta.png",
+      "backgroundImage": "images/final_mort.png",
       "isEnding": true,
       "decisions": []
     },
     {
       "id": "ending.captured",
       "text": "Suspiciunea a ajuns la maximum. Patrulele te inconjoara si esti capturat inainte de a ajunge la poarta.",
-      "backgroundImage": "images/poarta.png",
+      "backgroundImage": "images/final_capturat.png",
       "isEnding": true,
       "decisions": []
     }
