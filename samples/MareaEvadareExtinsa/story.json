@@ -1,0 +1,582 @@
+{
+  "title": "Marea evadare - editie extinsa",
+  "startBlockId": "intro.arrival",
+  "properties": [
+    {
+      "key": "player.life",
+      "hudLabel": "Viata",
+      "min": 0,
+      "max": 100,
+      "initial": 60,
+      "visibleInHud": true,
+      "hudOrder": 1,
+      "onMinBlockId": "ending.death"
+    },
+    {
+      "key": "player.energy",
+      "hudLabel": "Energie",
+      "min": 0,
+      "max": 100,
+      "initial": 50,
+      "visibleInHud": true,
+      "hudOrder": 2
+    },
+    {
+      "key": "inventory.money",
+      "hudLabel": "Bani",
+      "min": 0,
+      "max": 50,
+      "initial": 12,
+      "visibleInHud": true,
+      "hudOrder": 3
+    },
+    {
+      "key": "story.suspicion",
+      "hudLabel": "Suspiciune",
+      "min": 0,
+      "max": 100,
+      "initial": 0,
+      "visibleInHud": true,
+      "hudOrder": 4,
+      "onMaxBlockId": "ending.captured"
+    },
+    {
+      "key": "story.hasKey",
+      "hudLabel": "Cheie",
+      "min": 0,
+      "max": 1,
+      "initial": 0,
+      "visibleInHud": false,
+      "hudOrder": 98
+    },
+    {
+      "key": "inventory.bandage",
+      "hudLabel": "Pansament",
+      "min": 0,
+      "max": 1,
+      "initial": 0,
+      "visibleInHud": false,
+      "hudOrder": 99
+    }
+  ],
+  "blocks": [
+    {
+      "id": "intro.arrival",
+      "text": "Ajungi intr-o piata intunecata a districtului industrial. De aici poti cauta ajutor, echipamente sau o cale riscanta spre poarta.",
+      "backgroundImage": "images/intro.png",
+      "isEnding": false,
+      "decisions": [
+        {
+          "text": "Mergi la atelierul mecanicului",
+          "targetBlockId": "workshop.entry",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": -5
+            }
+          ]
+        },
+        {
+          "text": "Intra in piata clandestina",
+          "targetBlockId": "market.trader",
+          "effects": [
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "text": "Ia scurtatura prin aleea ingusta",
+          "targetBlockId": "alley.shortcut",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": -10
+            },
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "market.trader",
+      "text": "Un negustor iti ofera un pansament pentru 4 monede si sopteste ca mecanicul pastreaza cheia portii.",
+      "backgroundImage": "images/inn.png",
+      "isEnding": false,
+      "decisions": [
+        {
+          "text": "Cumpara pansamentul (4 bani)",
+          "targetBlockId": "market.afterPurchase",
+          "condition": {
+            "type": "comparison",
+            "property": "inventory.money",
+            "operator": "greaterOrEqual",
+            "value": 4,
+            "conditions": []
+          },
+          "effects": [
+            {
+              "type": "add",
+              "property": "inventory.money",
+              "value": -4
+            },
+            {
+              "type": "set",
+              "property": "inventory.bandage",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "text": "Intreaba insistent despre cheie",
+          "targetBlockId": "workshop.entry",
+          "effects": [
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 15
+            }
+          ]
+        },
+        {
+          "text": "Intoarce-te in piata",
+          "targetBlockId": "intro.arrival",
+          "effects": []
+        }
+      ]
+    },
+    {
+      "id": "market.afterPurchase",
+      "text": "Ascunzi pansamentul in haina. Negustorul iti recomanda sa eviti patrulele si sa cauti mecanicul.",
+      "backgroundImage": "images/inn.png",
+      "isEnding": false,
+      "decisions": [
+        {
+          "text": "Mergi la atelier",
+          "targetBlockId": "workshop.entry",
+          "effects": []
+        },
+        {
+          "text": "Alearga pe scurtatura spre poarta",
+          "targetBlockId": "alley.shortcut",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": -5
+            },
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "workshop.entry",
+      "text": "Atelierul mecanicului este slab luminat. Mecanicul iti vinde cheia portii pentru 5 monede, dar un sertar descuiat iti atrage atentia.",
+      "backgroundImage": "images/workshop.png",
+      "isEnding": false,
+      "decisions": [
+        {
+          "text": "Cumpara cheia (5 bani)",
+          "targetBlockId": "workshop.keyPurchased",
+          "condition": {
+            "type": "comparison",
+            "property": "inventory.money",
+            "operator": "greaterOrEqual",
+            "value": 5,
+            "conditions": []
+          },
+          "effects": [
+            {
+              "type": "add",
+              "property": "inventory.money",
+              "value": -5
+            },
+            {
+              "type": "set",
+              "property": "story.hasKey",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "text": "Cauta prin atelier",
+          "targetBlockId": "workshop.search",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": -10
+            },
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 15
+            }
+          ]
+        },
+        {
+          "text": "Intoarce-te in piata",
+          "targetBlockId": "intro.arrival",
+          "effects": []
+        }
+      ]
+    },
+    {
+      "id": "workshop.keyPurchased",
+      "text": "Cheia este grea si ruginita, dar se potriveste cu simbolul gravat pe poarta de iesire.",
+      "backgroundImage": "images/workshop.png",
+      "isEnding": false,
+      "decisions": [
+        {
+          "text": "Mergi pe strada principala spre control",
+          "targetBlockId": "guard.checkpoint",
+          "effects": [
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "text": "Incearca scurtatura",
+          "targetBlockId": "alley.shortcut",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": -5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "workshop.search",
+      "text": "Gasesti o cheie de rezerva, dar rascolirea atelierului declanseaza un clopotel de alarma.",
+      "backgroundImage": "images/workshop.png",
+      "isEnding": false,
+      "decisions": [
+        {
+          "text": "Fura cheia si fugi",
+          "targetBlockId": "guard.checkpoint",
+          "effects": [
+            {
+              "type": "set",
+              "property": "story.hasKey",
+              "value": 1
+            },
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 30
+            }
+          ]
+        },
+        {
+          "text": "Renunta si intoarce-te",
+          "targetBlockId": "intro.arrival",
+          "effects": [
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alley.shortcut",
+      "text": "Aleea este plina de cioburi si sirenele patrulelor se aud aproape. O taietura iti ingreuneaza mersul.",
+      "backgroundImage": "images/intro.png",
+      "isEnding": false,
+      "decisions": [
+        {
+          "text": "Foloseste pansamentul",
+          "targetBlockId": "guard.checkpoint",
+          "condition": {
+            "type": "comparison",
+            "property": "inventory.bandage",
+            "operator": "equal",
+            "value": 1,
+            "conditions": []
+          },
+          "effects": [
+            {
+              "type": "set",
+              "property": "inventory.bandage",
+              "value": 0
+            },
+            {
+              "type": "add",
+              "property": "player.life",
+              "value": 15
+            },
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": 5
+            }
+          ]
+        },
+        {
+          "text": "Continua in fuga",
+          "targetBlockId": "guard.checkpoint",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.life",
+              "value": -10
+            },
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": -15
+            },
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 15
+            }
+          ]
+        },
+        {
+          "text": "Intoarce-te in piata",
+          "targetBlockId": "intro.arrival",
+          "effects": []
+        }
+      ]
+    },
+    {
+      "id": "guard.checkpoint",
+      "text": "Un paznic blocheaza drumul catre poarta. Lumina lanternei lui se opreste asupra ta.",
+      "backgroundImage": "images/inn.png",
+      "isEnding": false,
+      "decisions": [
+        {
+          "text": "Mituieste paznicul (5 bani)",
+          "targetBlockId": "gate.locked",
+          "condition": {
+            "type": "comparison",
+            "property": "inventory.money",
+            "operator": "greaterOrEqual",
+            "value": 5,
+            "conditions": []
+          },
+          "effects": [
+            {
+              "type": "add",
+              "property": "inventory.money",
+              "value": -5
+            },
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": -10
+            }
+          ]
+        },
+        {
+          "text": "Arata cheia mecanicului",
+          "targetBlockId": "gate.locked",
+          "condition": {
+            "type": "comparison",
+            "property": "story.hasKey",
+            "operator": "equal",
+            "value": 1,
+            "conditions": []
+          },
+          "effects": [
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "text": "Fugi printre paznici",
+          "targetBlockId": "gate.locked",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.life",
+              "value": -25
+            },
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": -20
+            },
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 40
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gate.locked",
+      "text": "Poarta masiva este inchisa. In departare, sirenele se apropie, iar fiecare secunda conteaza.",
+      "backgroundImage": "images/gate.png",
+      "isEnding": false,
+      "decisions": [
+        {
+          "text": "Deschide poarta cu cheia",
+          "targetBlockId": "ending.escape",
+          "condition": {
+            "type": "and",
+            "conditions": [
+              {
+                "type": "comparison",
+                "property": "story.hasKey",
+                "operator": "equal",
+                "value": 1,
+                "conditions": []
+              },
+              {
+                "type": "comparison",
+                "property": "player.energy",
+                "operator": "greaterOrEqual",
+                "value": 10,
+                "conditions": []
+              }
+            ]
+          },
+          "effects": []
+        },
+        {
+          "text": "Forteaza poarta",
+          "targetBlockId": "gate.force",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.life",
+              "value": -25
+            },
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": -20
+            },
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 20
+            }
+          ]
+        },
+        {
+          "text": "Ascunde-te si incearca din nou",
+          "targetBlockId": "intro.arrival",
+          "effects": [
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gate.force",
+      "text": "Poarta nu cedeaza. Mainile iti sangereaza, iar patrula este aproape. Mai ai o singura sansa.",
+      "backgroundImage": "images/gate.png",
+      "isEnding": false,
+      "decisions": [
+        {
+          "text": "Foloseste pansamentul si reincearca",
+          "targetBlockId": "gate.locked",
+          "condition": {
+            "type": "comparison",
+            "property": "inventory.bandage",
+            "operator": "equal",
+            "value": 1,
+            "conditions": []
+          },
+          "effects": [
+            {
+              "type": "set",
+              "property": "inventory.bandage",
+              "value": 0
+            },
+            {
+              "type": "add",
+              "property": "player.life",
+              "value": 20
+            },
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "text": "Loveste poarta cu ultimele puteri",
+          "targetBlockId": "gate.locked",
+          "effects": [
+            {
+              "type": "add",
+              "property": "player.life",
+              "value": -35
+            },
+            {
+              "type": "add",
+              "property": "player.energy",
+              "value": -15
+            },
+            {
+              "type": "add",
+              "property": "story.suspicion",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "text": "Preda-te patrulei",
+          "targetBlockId": "ending.captured",
+          "effects": []
+        }
+      ]
+    },
+    {
+      "id": "ending.escape",
+      "text": "Cheia se roteste, poarta se deschide si dispari dincolo de ziduri. Ai evadat din districtul industrial!",
+      "backgroundImage": "images/escape.png",
+      "isEnding": true,
+      "decisions": []
+    },
+    {
+      "id": "ending.death",
+      "text": "Ranile sunt prea grave. Cazi langa poarta, iar aventura se incheie aici.",
+      "backgroundImage": "images/death.png",
+      "isEnding": true,
+      "decisions": []
+    },
+    {
+      "id": "ending.captured",
+      "text": "Suspiciunea a ajuns la maximum. Patrulele te inconjoara si esti capturat inainte de a ajunge la poarta.",
+      "backgroundImage": "images/death.png",
+      "isEnding": true,
+      "decisions": []
+    }
+  ]
+}
